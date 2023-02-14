@@ -1,16 +1,19 @@
 <template>
 	<view class="">
-		<view class="content" v-for="item in 10">
+		<view class="content">
 			<view class="img">
-				<image src="../../static/images/0.jpg" mode="aspectFill"></image>
+				<image :src="item.picurl" mode="aspectFill"></image>
 			</view>
 			<view class="text">
 				<view class="title">
-					这是一段标题这是一段标题这是一段标题这是一段标题
+					{{item.title}}
 				</view>
-				<view class="info">
-					<text>这是作者</text>
-					<text>999浏览</text>
+				<view class="info" v-if="!item.lookTime">
+					<text>{{item.author}}</text>
+					<text>{{item.hits}}</text>
+				</view>
+				<view class="info" v-else >
+					<text>查看时间：  {{item.lookTime}}</text>
 				</view>
 			</view>
 		</view>
@@ -21,6 +24,19 @@
 <script>
 	export default {
 		name:"Newsbox",
+		props: {
+			item: {
+				type: Object,
+				default() {
+					return {
+						title: '这是标题',
+						author: '作者',
+						hits: '999',
+						picurl: '/static/images/nopic.jpg',
+					}
+				}
+			}
+		},
 		data() {
 			return {
 				
@@ -45,11 +61,19 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
+			flex: 1;
 			margin-left: 20rpx;
 			//双行省略
-			.title {
-				font-size: 35rpx;
-				color: #333;
+			.title{
+				font-size: 36rpx;
+				color:#333;
+				text-overflow: -o-ellipsis-lastline;
+				overflow: hidden;				//溢出内容隐藏
+				text-overflow: ellipsis;		//文本溢出部分用省略号表示
+				display: -webkit-box;			//特别显示模式
+				-webkit-line-clamp: 2;			//行数
+				line-clamp: 2;					
+				-webkit-box-orient: vertical
 			}
 			.info {
 				font-size: 20rpx;

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "个人",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "newsbox": "/components/Newsbox/Newsbox"
+  }
+}
